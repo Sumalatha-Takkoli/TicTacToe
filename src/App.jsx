@@ -1,10 +1,29 @@
 import Players from "./components/players.jsx"
 import GameBoard from "./components/gameBoard.jsx"
+import Log from "./components/Log.jsx"
 import { useState } from "react"
+function getcurrentPlayer(turns){
+  let currentPlayer='X'
+      if(turns.length>0 && turns[0].player==='X')
+      {
+        currentPlayer="O"
+      }
+      return currentPlayer;
+}
 function App() {
-  let [activePlayer,setActivePlayer]=useState('X');
-  function handleSelectGrid(){
-    setActivePlayer((initialSymbol)=>initialSymbol==='X'? "O" : "X")
+  let [gameTurns, setgameTurns]=useState([])
+  let activePlayer=getcurrentPlayer(gameTurns)
+
+  function handleSelectGrid(rowIndex,colIndex){
+    setgameTurns((previousTurns)=>{
+      let currentPlayer=getcurrentPlayer(previousTurns)
+      let updatedTurns=[
+        {square:{row:rowIndex, col:colIndex},player:currentPlayer},
+        ...previousTurns
+      ]
+      return updatedTurns;
+    })
+
   }
 return (
 <main>
@@ -13,8 +32,9 @@ return (
     <Players initialName="player 1" symbol="X" isActive={activePlayer==="X"}></Players>
     <Players initialName="player 2" symbol="O" isActive={activePlayer==="O"}></Players>
     </ol>
-    <GameBoard onSelectGrid={handleSelectGrid} isActive={activePlayer}></GameBoard>
+    <GameBoard onSelectGrid={handleSelectGrid} turns={gameTurns}></GameBoard>
   </div>
+  <Log turns={gameTurns}></Log>
 </main>
 )
 }

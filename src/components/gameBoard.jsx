@@ -1,20 +1,7 @@
 import { useState } from "react"
 
-let initialBoard=[
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
 export default function GameBoard({onSelectGrid, turns}){
-    // let [gameBoard, setGameBoard]=useState(initialBoard);
-    // function handleSelect(row,column){
-    //     setGameBoard((prevGameBoard)=>{
-    //     let updatedGateBoard=[...prevGameBoard.map((innerBoard)=>[...innerBoard])]
-    //     updatedGateBoard[row][column]=isActive
-    //     return updatedGateBoard;
-    // })
-    // onSelectGrid();
-    // }
+
     return (
         <ol id="game-board">
             {turns.map((row, rowIndex) => <li key={rowIndex}>
